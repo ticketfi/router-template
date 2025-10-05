@@ -32,9 +32,15 @@ cors:
         - apollo-require-preflight
         - authorization
         - set-cookie
+        - content-length
+        - content-encoding
+        - date
+        - server
         - x-apollo-tracing
         - apollographql-client-name
         - apollographql-client-version
+        - x-response-time
+        - x-request-id
 
 # Header forwarding - CRITICAL for auth to work
 headers:
