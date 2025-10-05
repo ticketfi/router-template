@@ -29,7 +29,6 @@ cors:
     - apollo-require-preflight
   expose_headers:
     - apollo-require-preflight # Required for Apollo Studio
-    - content-type
 
 # Header forwarding - CRITICAL for auth to work
 headers:
