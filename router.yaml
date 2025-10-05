@@ -16,22 +16,29 @@ include_subgraph_errors:
   all: true
 
 cors:
-  # WARNING: allow_any_origin: true is NOT safe for production!
-  # This setting allows requests from any origin, which can lead to security vulnerabilities.
-  # 
-  # For development/testing: Keep as-is for quick experimentation
-  # For production: Replace with specific origins like:
-  #
-  # origins:
-  #   - "https://yourdomain.com"
-  #   - "https://app.yourdomain.com"
-  #   - "https://admin.yourdomain.com"
-  #
-  # You can also use environment variables:
-  # origins:
-  #   - "${env.FRONTEND_URL}"
-  #   - "${env.ADMIN_URL}"
-  allow_any_origin: true
+  origins:
+    - https://studio.apollographql.com # Apollo Studio Explorer
+    - https://app.ticketfi.ai
+    - https://app.ticketfi.net
+    - https://app.ticketfi.dev
+    - https://app.ticketfi.local
+  allow_credentials: true
+  allow_headers:
+    - content-type
+    - authorization
+    - apollo-require-preflight
+  expose_headers:
+    - apollo-require-preflight # Required for Apollo Studio
+    - content-type
+
+# Header forwarding - CRITICAL for auth to work
+headers:
+  all:
+    request:
+      - propagate:
+          named: "authorization"
+      - propagate:
+          named: "cookie"
 
 limits:
   parser_max_tokens: 15000 # This is the default value.
@@ -41,7 +48,14 @@ limits:
   max_aliases: 30
   max_root_fields: 20
 
+# Health check
+health_check:
+  enabled: true
+
+# Telemetry
 telemetry:
+  apollo:
+    endpoint: https://usage-reporting.api.apollographql.com/api/ingress/traces
   instrumentation:
     spans:
       mode: spec_compliant
