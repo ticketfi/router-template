@@ -29,7 +29,12 @@ cors:
         - authorization
         - apollo-require-preflight
       expose_headers:
-        - apollo-require-preflight # Required for Apollo Studio
+        - apollo-require-preflight
+        - authorization
+        - set-cookie
+        - x-apollo-tracing
+        - apollographql-client-name
+        - apollographql-client-version
 
 # Header forwarding - CRITICAL for auth to work
 headers:
