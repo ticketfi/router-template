@@ -16,19 +16,20 @@ include_subgraph_errors:
   all: true
 
 cors:
-  origins:
-    - https://studio.apollographql.com # Apollo Studio Explorer
-    - https://app.ticketfi.ai
-    - https://app.ticketfi.net
-    - https://app.ticketfi.dev
-    - https://app.ticketfi.local
-  allow_credentials: true
-  allow_headers:
-    - content-type
-    - authorization
-    - apollo-require-preflight
-  expose_headers:
-    - apollo-require-preflight # Required for Apollo Studio
+  policies:
+    - origins:
+        - https://studio.apollographql.com # Apollo Studio Explorer
+        - https://app.ticketfi.ai
+        - https://app.ticketfi.net
+        - https://app.ticketfi.dev
+        - https://app.ticketfi.local
+      allow_credentials: true
+      allow_headers:
+        - content-type
+        - authorization
+        - apollo-require-preflight
+      expose_headers:
+        - apollo-require-preflight # Required for Apollo Studio
 
 # Header forwarding - CRITICAL for auth to work
 headers:
