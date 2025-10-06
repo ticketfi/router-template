@@ -2,7 +2,7 @@ services:
   - type: web
     name: apollo-router
     runtime: docker
-    repo: https://github.com/apollographql/router-template
+    repo: https://github.com/ticketfi/router-template
     plan: free
     envVars:
       - key: APOLLO_GRAPH_REF
