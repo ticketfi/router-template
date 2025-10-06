@@ -6,6 +6,7 @@ sandbox:
 supergraph:
   introspection: true
   listen: 0.0.0.0:${env.PORT:-4000}
+  path: /graphql
   query_planning:
     cache:
       in_memory:
