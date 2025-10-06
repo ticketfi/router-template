@@ -74,9 +74,11 @@ cors:
         - content-type
         - authorization
         - apollo-require-preflight
+        - x-request-id
+        - cookie
       expose_headers:
         - apollo-require-preflight
-        - authorization
+        - content-type
         - set-cookie
         - content-length
         - content-encoding
