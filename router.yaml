@@ -21,7 +21,7 @@ cors:
     - origins:
         # Apollo Studio
         - https://studio.apollographql.com
-        
+
         # Development domains (.dev) - Production only, no local
         - https://ticketfi.dev
         - https://auth.ticketfi.dev
@@ -34,7 +34,7 @@ cors:
         - https://talent.ticketfi.dev
         - https://attendee.ticketfi.dev
         - https://api.ticketfi.dev
-        
+
         # Staging domains (.net)
         - https://ticketfi.net
         - https://auth.ticketfi.net
@@ -47,7 +47,7 @@ cors:
         - https://talent.ticketfi.net
         - https://attendee.ticketfi.net
         - https://api.ticketfi.net
-        
+
         # Production domains (.ai)
         - https://ticketfi.ai
         - https://auth.ticketfi.ai

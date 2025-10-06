@@ -55,6 +55,7 @@ NEXT_PUBLIC_GRAPHQL_ENDPOINT=https://api.ticketfi.ai/graphql
 ## Domain Architecture
 
 ### Production (.ai)
+
 - **WWW:** `https://ticketfi.ai`
 - **Auth Frontend:** `https://auth.ticketfi.ai` - Sign-in/sign-up UI
 - **Auth API:** `https://auth-api.ticketfi.ai` - REST auth endpoints
@@ -62,6 +63,7 @@ NEXT_PUBLIC_GRAPHQL_ENDPOINT=https://api.ticketfi.ai/graphql
 - **Apps:** `https://{app}.ticketfi.ai` - organizer, manager, etc.
 
 ### Staging (.net)
+
 - **WWW:** `https://ticketfi.net`
 - **Auth Frontend:** `https://auth.ticketfi.net`
 - **Auth API:** `https://auth-api.ticketfi.net`
@@ -69,6 +71,7 @@ NEXT_PUBLIC_GRAPHQL_ENDPOINT=https://api.ticketfi.ai/graphql
 - **Apps:** `https://{app}.ticketfi.net`
 
 ### Development (.dev)
+
 - **WWW:** `https://ticketfi.dev`
 - **Auth Frontend:** `https://auth.ticketfi.dev`
 - **Auth API:** `https://auth-api.ticketfi.dev`
@@ -86,7 +89,7 @@ cors:
         # Production domains (.ai)
         - https://ticketfi.ai
         - https://auth.ticketfi.ai
-        - https://auth-api.ticketfi.ai  # ✅ Auth REST API
+        - https://auth-api.ticketfi.ai # ✅ Auth REST API
         - https://dashboard.ticketfi.ai
         - https://organizer.ticketfi.ai
         - https://manager.ticketfi.ai
@@ -95,18 +98,19 @@ cors:
         - https://talent.ticketfi.ai
         - https://attendee.ticketfi.ai
         - https://api.ticketfi.ai
-      allow_credentials: true  # ✅ Required for cookies
+      allow_credentials: true # ✅ Required for cookies
       allow_headers:
         - content-type
         - authorization
-        - cookie  # ✅ Required for auth
+        - cookie # ✅ Required for auth
       expose_headers:
-        - set-cookie  # ✅ Required for auth
+        - set-cookie # ✅ Required for auth
 ```
 
 ## Cookie Flow
 
 ### Sign In Flow
+
 1. User visits `https://organizer.ticketfi.ai`
 2. Middleware detects no auth, redirects to `https://auth.ticketfi.ai/sign-in?returnUrl=...`
 3. User enters credentials
@@ -116,22 +120,23 @@ cors:
 7. Organizer app reads cookies and validates JWT
 
 ### Cookie Settings (Backend)
+
 ```typescript
 res.cookie('access_token', token, {
-  httpOnly: true,          // ✅ Can't be accessed by JavaScript
-  secure: true,            // ✅ HTTPS only
-  sameSite: 'none',        // ✅ Allow cross-domain
-  domain: '.ticketfi.ai',  // ✅ Shared across subdomains (note the dot)
-  maxAge: 15 * 60 * 1000  // 15 minutes
-})
+  httpOnly: true, // ✅ Can't be accessed by JavaScript
+  secure: true, // ✅ HTTPS only
+  sameSite: 'none', // ✅ Allow cross-domain
+  domain: '.ticketfi.ai', // ✅ Shared across subdomains (note the dot)
+  maxAge: 15 * 60 * 1000, // 15 minutes
+});
 
 res.cookie('refresh_token', refreshToken, {
   httpOnly: true,
   secure: true,
   sameSite: 'none',
   domain: '.ticketfi.ai',
-  maxAge: 7 * 24 * 60 * 60 * 1000  // 7 days
-})
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+});
 ```
 
 ## Backend REST Endpoints
@@ -139,9 +144,11 @@ res.cookie('refresh_token', refreshToken, {
 Auth backend service must expose these REST endpoints:
 
 ### POST /signin
+
 Authenticates user and sets httpOnly cookies.
 
 **Request:**
+
 ```json
 {
   "email": "user@example.com",
@@ -150,6 +157,7 @@ Authenticates user and sets httpOnly cookies.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -165,14 +173,17 @@ Authenticates user and sets httpOnly cookies.
 ```
 
 **Cookies Set:**
+
 - `access_token` (httpOnly, 15min)
 - `refresh_token` (httpOnly, 7d)
 - `session_id` (httpOnly, session)
 
 ### POST /signup
+
 Registers new user and sets httpOnly cookies.
 
 **Request:**
+
 ```json
 {
   "email": "user@example.com",
@@ -184,9 +195,11 @@ Registers new user and sets httpOnly cookies.
 **Response:** Same as `/signin`
 
 ### POST /signout
+
 Clears httpOnly cookies.
 
 **Response:**
+
 ```json
 {
   "success": true
@@ -194,14 +207,17 @@ Clears httpOnly cookies.
 ```
 
 **Cookies Cleared:**
+
 - `access_token`
 - `refresh_token`
 - `session_id`
 
 ### GET /verify
+
 Verifies authentication status via cookies.
 
 **Response:**
+
 ```json
 {
   "authenticated": true,
@@ -218,6 +234,7 @@ Verifies authentication status via cookies.
 ## Railway Services Configuration
 
 ### Service 1: Apollo Router
+
 - **Name:** `ticketfi-router`
 - **Port:** 4000
 - **Domain:** `api.ticketfi.ai`
@@ -225,6 +242,7 @@ Verifies authentication status via cookies.
 - **Config:** Uses `router.yaml` from this repo
 
 ### Service 2: Auth Backend
+
 - **Name:** `ticketfi-auth-api`
 - **Port:** 4001 (internal)
 - **Domain:** `auth-api.ticketfi.ai`
@@ -232,6 +250,7 @@ Verifies authentication status via cookies.
 - **Endpoints:** `/signin`, `/signup`, `/signout`, `/verify`
 
 ### Service 3: Auth Frontend
+
 - **Name:** `ticketfi-auth`
 - **Port:** 3000 (internal)
 - **Domain:** `auth.ticketfi.ai`
@@ -255,6 +274,7 @@ Production deployment must have:
 ## Testing Production Auth
 
 ### 1. Test Cookie Setting
+
 ```bash
 curl -X POST https://auth-api.ticketfi.ai/signin \
   -H "Content-Type: application/json" \
@@ -265,6 +285,7 @@ curl -X POST https://auth-api.ticketfi.ai/signin \
 Look for `Set-Cookie` headers in response.
 
 ### 2. Test Cookie Reading
+
 ```bash
 curl https://auth-api.ticketfi.ai/verify \
   -H "Cookie: access_token=..." \
@@ -274,6 +295,7 @@ curl https://auth-api.ticketfi.ai/verify \
 Should return authenticated user.
 
 ### 3. Test Cross-Domain
+
 1. Sign in at `https://auth.ticketfi.ai/sign-in`
 2. Navigate to `https://organizer.ticketfi.ai`
 3. Should be authenticated (no redirect to sign-in)
@@ -281,18 +303,21 @@ Should return authenticated user.
 ## Troubleshooting
 
 ### Cookies Not Being Set
+
 - Check `COOKIE_SECURE=true` is set
 - Verify domain has HTTPS (not HTTP)
 - Check `Set-Cookie` header has `Domain=.ticketfi.ai` (note the dot)
 - Ensure `SameSite=None; Secure` is present
 
 ### Cookies Not Being Sent
+
 - Check frontend uses `credentials: 'include'` in fetch
 - Verify CORS has `allow_credentials: true`
 - Check cookie domain matches request domain
 - Ensure cookies haven't expired
 
 ### 401 Unauthorized
+
 - Check JWT_SECRET matches between services
 - Verify access_token hasn't expired
 - Check JWT middleware is validating correctly
@@ -310,16 +335,19 @@ See `/frontend/docs/AUTH_REST_API_MIGRATION.md` for full migration details.
 ## Environment-Specific Notes
 
 ### Development (.dev)
+
 - Use `COOKIE_DOMAIN=.ticketfi.dev`
 - Doppler config: `dev`
 - Can use less strict security for testing
 
 ### Staging (.net)
+
 - Use `COOKIE_DOMAIN=.ticketfi.net`
 - Doppler config: `stg`
 - Should mirror production security
 
 ### Production (.ai)
+
 - Use `COOKIE_DOMAIN=.ticketfi.ai`
 - Doppler config: `prd`
 - All security settings must be production-grade
