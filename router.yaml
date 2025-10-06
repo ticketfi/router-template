@@ -18,11 +18,56 @@ include_subgraph_errors:
 cors:
   policies:
     - origins:
-        - https://studio.apollographql.com # Apollo Studio Explorer
-        - https://app.ticketfi.ai
-        - https://app.ticketfi.net
-        - https://app.ticketfi.dev
-        - https://app.ticketfi.local
+        # Apollo Studio
+        - https://studio.apollographql.com
+        
+        # Local .local domains (HTTPS)
+        - https://ticketfi.local
+        - https://auth.ticketfi.local
+        - https://dashboard.ticketfi.local
+        - https://organizer.ticketfi.local
+        - https://manager.ticketfi.local
+        - https://promoter.ticketfi.local
+        - https://venue.ticketfi.local
+        - https://talent.ticketfi.local
+        - https://attendee.ticketfi.local
+        - https://api.ticketfi.local
+        
+        # Development domains (.dev)
+        - https://ticketfi.dev
+        - https://auth.ticketfi.dev
+        - https://dashboard.ticketfi.dev
+        - https://organizer.ticketfi.dev
+        - https://manager.ticketfi.dev
+        - https://promoter.ticketfi.dev
+        - https://venue.ticketfi.dev
+        - https://talent.ticketfi.dev
+        - https://attendee.ticketfi.dev
+        - https://api.ticketfi.dev
+        
+        # Staging domains (.net)
+        - https://ticketfi.net
+        - https://auth.ticketfi.net
+        - https://dashboard.ticketfi.net
+        - https://organizer.ticketfi.net
+        - https://manager.ticketfi.net
+        - https://promoter.ticketfi.net
+        - https://venue.ticketfi.net
+        - https://talent.ticketfi.net
+        - https://attendee.ticketfi.net
+        - https://api.ticketfi.net
+        
+        # Production domains (.ai)
+        - https://ticketfi.ai
+        - https://auth.ticketfi.ai
+        - https://dashboard.ticketfi.ai
+        - https://organizer.ticketfi.ai
+        - https://manager.ticketfi.ai
+        - https://promoter.ticketfi.ai
+        - https://venue.ticketfi.ai
+        - https://talent.ticketfi.ai
+        - https://attendee.ticketfi.ai
+        - https://api.ticketfi.ai
       allow_credentials: true
       allow_headers:
         - content-type
