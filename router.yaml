@@ -62,6 +62,7 @@ limits:
 # Health check
 health_check:
   enabled: true
+  listen: 0.0.0.0:${env.PORT:-4000}
   path: /health
 
 # Traffic shaping for subgraph health and reliability
