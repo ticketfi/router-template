@@ -62,6 +62,20 @@ limits:
 # Health check
 health_check:
   enabled: true
+  path: /health
+
+# Traffic shaping for subgraph health and reliability
+traffic_shaping:
+  all:
+    timeout: 30s
+    deduplicate_query: true
+  subgraphs:
+    products:
+      timeout: 5s
+      deduplicate_query: true
+    users:
+      timeout: 5s
+      deduplicate_query: true
 
 # Telemetry
 telemetry:
