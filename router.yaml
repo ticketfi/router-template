@@ -22,21 +22,10 @@ cors:
         # Apollo Studio
         - https://studio.apollographql.com
         
-        # Local .local domains (HTTPS)
-        - https://ticketfi.local
-        - https://auth.ticketfi.local
-        - https://dashboard.ticketfi.local
-        - https://organizer.ticketfi.local
-        - https://manager.ticketfi.local
-        - https://promoter.ticketfi.local
-        - https://venue.ticketfi.local
-        - https://talent.ticketfi.local
-        - https://attendee.ticketfi.local
-        - https://api.ticketfi.local
-        
-        # Development domains (.dev)
+        # Development domains (.dev) - Production only, no local
         - https://ticketfi.dev
         - https://auth.ticketfi.dev
+        - https://auth-api.ticketfi.dev
         - https://dashboard.ticketfi.dev
         - https://organizer.ticketfi.dev
         - https://manager.ticketfi.dev
@@ -49,6 +38,7 @@ cors:
         # Staging domains (.net)
         - https://ticketfi.net
         - https://auth.ticketfi.net
+        - https://auth-api.ticketfi.net
         - https://dashboard.ticketfi.net
         - https://organizer.ticketfi.net
         - https://manager.ticketfi.net
@@ -61,6 +51,7 @@ cors:
         # Production domains (.ai)
         - https://ticketfi.ai
         - https://auth.ticketfi.ai
+        - https://auth-api.ticketfi.ai
         - https://dashboard.ticketfi.ai
         - https://organizer.ticketfi.ai
         - https://manager.ticketfi.ai
