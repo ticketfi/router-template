@@ -82,6 +82,12 @@ traffic_shaping:
 telemetry:
   apollo:
     endpoint: https://usage-reporting.api.apollographql.com/api/ingress/traces
+  exporters:
+    metrics:
+      prometheus:
+        enabled: true
+        listen: 0.0.0.0:${env.PORT:-4000}
+        path: /metrics
   instrumentation:
     spans:
       mode: spec_compliant
